@@ -291,9 +291,14 @@ GROUP BY Employee.LastName
 23.
 ##Provide a query that shows the total sales per country. Which country's customers spent the most?
 
+SELECT SUM(Invoice.Total), Invoice.BillingCountry FROM Invoice
+Group BY Invoice.BillingCountry
+
+"523.06"	"USA"
 
 24.
 ##Provide a query that shows the most purchased track of 2013.
+
 
 
 25.
