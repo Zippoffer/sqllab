@@ -177,11 +177,15 @@ SELECT COUNT(InvoiceId) FROM InvoiceLine WHERE InvoiceLine.InvoiceId LIKE "37"
 11.
 ##Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
 
-Select COUNT(*) FROM InvoiceLine
+Select COUNT(*) FROM InvoiceLine GROUP BY InvoiceLineId
 
 12.
 ##Provide a query that includes the track name with each invoice line item.
 
+SELECT InvoiceLine.InvoiceLineId, Track.Name AS Track FROM InvoiceLine 
+JOIN Track ON Track.TrackId = InvoiceLine.TrackId 
+JOIN Album ON Album.AlbumId = Track.AlbumId 
+ORDER BY InvoiceLineId
 
 13.
 ##Provide a query that includes the purchased track name AND artist name with each invoice line item.
