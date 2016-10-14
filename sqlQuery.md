@@ -177,36 +177,66 @@ SELECT COUNT(InvoiceId) FROM InvoiceLine WHERE InvoiceLine.InvoiceId LIKE "37"
 11.
 ##Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
 
-Select COUNT(*) FROM InvoiceLine
+Select COUNT(*) FROM InvoiceLine GROUP BY InvoiceLineId
 
 12.
 ##Provide a query that includes the track name with each invoice line item.
 
+SELECT InvoiceLine.InvoiceLineId, Track.Name AS Track FROM InvoiceLine 
+JOIN Track ON Track.TrackId = InvoiceLine.TrackId 
+JOIN Album ON Album.AlbumId = Track.AlbumId 
+ORDER BY InvoiceLineId
 
 13.
 ##Provide a query that includes the purchased track name AND artist name with each invoice line item.
 
+SELECT InvoiceLine.InvoiceLineId, Track.Name AS Track, Artist.Name AS ArtistName FROM InvoiceLine 
+JOIN Track ON Track.TrackId = InvoiceLine.TrackId 
+JOIN Album ON Album.AlbumId = Track.AlbumId 
+JOIN Artist ON Album.ArtistId = Artist.ArtistId
+ORDER BY InvoiceLineId;
 
 14.
 ##Provide a query that shows the # of invoices per country. HINT: [GROUP BY](http://www.sqlite.org/lang_select.html#resultset)
 
+SELECT Invoice.Total, Invoice.BillingCountry FROM Invoice
+GROUP BY Invoice.BillingCountry
 
 15.
 ##Provide a query that shows the total number of tracks in each playlist. The Playlist name should be include on the resultant table.
+
+SELECT Playlist.Name AS PlaylistName, Playlist.PlaylistId, COUNT(PlaylistTrack.TrackId) AS NumOfTracks FROM Playlist 
+INNER JOIN PlaylistTrack ON PlaylistTrack.PlaylistId = Playlist.PlaylistId 
+GROUP BY Playlist.PlaylistId
 
 
 16.
 ##Provide a query that shows all the Tracks, but displays no IDs. The resultant table should include the Album name, Media type and Genre.
 
+SELECT Track.Name AS Track, Album.Title AS AlbumName, MediaType.Name AS MediaType, Genre.Name AS Genre FROM Track
+JOIN Album ON Album.AlbumId = Track.AlbumId
+JOIN MediaType ON MediaType.MediaTypeId = Track.MediaTypeId
+JOIN Genre ON Genre.GenreId = Track.GenreId
 
 
 17.
 ##Provide a query that shows all Invoices but includes the # of invoice line items.
 
+SELECT COUNT(InvoiceLine.InvoiceId), Invoice.InvoiceId AS InvoiceId FROM Invoice
+JOIN InvoiceLine ON InvoiceLine.InvoiceId = Invoice.InvoiceId 
+Group BY Invoice.InvoiceId;
 
 18.
 ##Provide a query that shows total sales made by each sales agent.
 
+SELECT Employee.FirstName ||'  '|| Employee.LastName AS SalesAgent, SUM(Invoice.Total) AS TotalSales FROM Employee
+JOIN Customer ON Customer.SupportRepId = Employee.EmployeeId
+JOIN Invoice ON Invoice.CustomerId = Customer.CustomerId
+GROUP BY Employee.LastName
+
+Steve Johnson: $720.16
+Margaret Park: $775.40
+Jane Peacock: $833.04
 
 19.
 ##Which sales agent made the most in sales in 2009?
