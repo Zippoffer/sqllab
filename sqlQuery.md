@@ -199,6 +199,8 @@ ORDER BY InvoiceLineId;
 14.
 ##Provide a query that shows the # of invoices per country. HINT: [GROUP BY](http://www.sqlite.org/lang_select.html#resultset)
 
+SELECT Invoice.Total, Invoice.BillingCountry FROM Invoice
+GROUP BY Invoice.BillingCountry
 
 15.
 ##Provide a query that shows the total number of tracks in each playlist. The Playlist name should be include on the resultant table.
