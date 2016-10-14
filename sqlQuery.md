@@ -279,7 +279,14 @@ GROUP BY Employee.LastName )
 22.
 ##Provide a query that shows the # of customers assigned to each sales agent.
 
+SELECT SUM(Customer.CustomerId), Employee.FirstName ||''|| Employee.LastName AS SalesAgent FROM Customer
+JOIN Employee ON Customer.SupportRepId = Employee.EmployeeId
+WHERE ReportsTo = '2'
+GROUP BY Employee.LastName
 
+"546"	"SteveJohnson"
+"523"	"MargaretPark"
+"701"	"JanePeacock"
 
 23.
 ##Provide a query that shows the total sales per country. Which country's customers spent the most?
