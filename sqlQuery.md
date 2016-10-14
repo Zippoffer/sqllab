@@ -222,6 +222,9 @@ JOIN Genre ON Genre.GenreId = Track.GenreId
 17.
 ##Provide a query that shows all Invoices but includes the # of invoice line items.
 
+SELECT COUNT(InvoiceLine.InvoiceId), Invoice.InvoiceId AS InvoiceId FROM Invoice
+JOIN InvoiceLine ON InvoiceLine.InvoiceId = Invoice.InvoiceId 
+Group BY Invoice.InvoiceId;
 
 18.
 ##Provide a query that shows total sales made by each sales agent.
