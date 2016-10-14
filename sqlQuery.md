@@ -190,6 +190,11 @@ ORDER BY InvoiceLineId
 13.
 ##Provide a query that includes the purchased track name AND artist name with each invoice line item.
 
+SELECT InvoiceLine.InvoiceLineId, Track.Name AS Track, Artist.Name AS ArtistName FROM InvoiceLine 
+JOIN Track ON Track.TrackId = InvoiceLine.TrackId 
+JOIN Album ON Album.AlbumId = Track.AlbumId 
+JOIN Artist ON Album.ArtistId = Artist.ArtistId
+ORDER BY InvoiceLineId;
 
 14.
 ##Provide a query that shows the # of invoices per country. HINT: [GROUP BY](http://www.sqlite.org/lang_select.html#resultset)
