@@ -232,6 +232,7 @@ Group BY Invoice.InvoiceId;
 SELECT Employee.FirstName ||'  '|| Employee.LastName AS SalesAgent, SUM(Invoice.Total) AS TotalSales FROM Employee
 JOIN Customer ON Customer.SupportRepId = Employee.EmployeeId
 JOIN Invoice ON Invoice.CustomerId = Customer.CustomerId
+WHERE ReportsTo = '2'
 GROUP BY Employee.LastName
 
 Steve Johnson: $720.16
@@ -241,17 +242,43 @@ Jane Peacock: $833.04
 19.
 ##Which sales agent made the most in sales in 2009?
 
+SELECT Employee.FirstName ||'  '|| Employee.LastName AS SalesAgent, SUM(Invoice.Total) AS TotalSales FROM Employee
+JOIN Customer ON Customer.SupportRepId = Employee.EmployeeId
+JOIN Invoice ON Invoice.CustomerId = Customer.CustomerId
+WHERE Invoice.InvoiceDate LIKE '%2009%'
+GROUP BY Employee.LastName
+
+"Steve  Johnson"	"164.34"
+"Margaret  Park"	"161.37"
+"Jane  Peacock"	"123.75"
 
 20.
 ##Which sales agent made the most in sales in 2010?
 
+SELECT Employee.FirstName ||'  '|| Employee.LastName AS SalesAgent, SUM(Invoice.Total) AS TotalSales FROM Employee
+JOIN Customer ON Customer.SupportRepId = Employee.EmployeeId
+JOIN Invoice ON Invoice.CustomerId = Customer.CustomerId
+WHERE Invoice.InvoiceDate LIKE '%2010%'
+GROUP BY Employee.LastName
+
+"Steve  Johnson"	"136.77"
+"Margaret  Park"	"122.76"
+"Jane  Peacock"	"221.92"
 
 21.
 ##Which sales agent made the most in sales over all?
 
+SELECT [Sales Agent], MAX([Total Sales]) FROM ( SELECT Employee.FirstName || ' ' || Employee.LastName AS [Sales Agent],
+SUM(Invoice.Total) AS [Total Sales] FROM Employee 
+INNER JOIN Customer ON Customer.SupportRepId = Employee.EmployeeId 
+INNER JOIN Invoice ON Invoice.CustomerId = Customer.CustomerId
+GROUP BY Employee.LastName )
+
+"Jane Peacock"	"833.040000000002"
 
 22.
 ##Provide a query that shows the # of customers assigned to each sales agent.
+
 
 
 23.
