@@ -229,6 +229,14 @@ Group BY Invoice.InvoiceId;
 18.
 ##Provide a query that shows total sales made by each sales agent.
 
+SELECT Employee.FirstName ||'  '|| Employee.LastName AS SalesAgent, SUM(Invoice.Total) AS TotalSales FROM Employee
+JOIN Customer ON Customer.SupportRepId = Employee.EmployeeId
+JOIN Invoice ON Invoice.CustomerId = Customer.CustomerId
+GROUP BY Employee.LastName
+
+Steve Johnson: $720.16
+Margaret Park: $775.40
+Jane Peacock: $833.04
 
 19.
 ##Which sales agent made the most in sales in 2009?
