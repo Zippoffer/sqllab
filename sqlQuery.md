@@ -205,6 +205,10 @@ GROUP BY Invoice.BillingCountry
 15.
 ##Provide a query that shows the total number of tracks in each playlist. The Playlist name should be include on the resultant table.
 
+SELECT Playlist.Name AS PlaylistName, Playlist.PlaylistId, COUNT(PlaylistTrack.TrackId) AS NumOfTracks FROM Playlist 
+INNER JOIN PlaylistTrack ON PlaylistTrack.PlaylistId = Playlist.PlaylistId 
+GROUP BY Playlist.PlaylistId
+
 
 16.
 ##Provide a query that shows all the Tracks, but displays no IDs. The resultant table should include the Album name, Media type and Genre.
