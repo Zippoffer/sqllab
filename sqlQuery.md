@@ -320,7 +320,18 @@ ORDER BY "Total Sales" DESC LIMIT 5
 26.
 ##Provide a query that shows the top 3 best selling artists.
 
+SELECT Artist.Name, SUM(InvoiceLine.TrackId) AS "Total Sales" FROM InvoiceLine
+JOIN Track ON InvoiceLine.TrackId = Track.TrackId
+JOIN Album On Track.AlbumId = Album.AlbumId
+JOIN Artist ON Album.ArtistId = Artist.ArtistId
+GROUP BY InvoiceLine.TrackId
+ORDER BY "Total Sales" DESC LIMIT 3
+
+"Emerson String Quartet"	"7000"
+"Equale Brass Ensemble, John Eliot Gardiner & Munich Monteverdi Orchestra and Choir"	"6976"
+"Academy of St. Martin in the Fields, Sir Neville Marriner & Thurston Dart"	"6964"
 
 27.
 ##Provide a query that shows the most purchased Media Type.
+
 
