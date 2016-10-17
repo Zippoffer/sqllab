@@ -299,7 +299,13 @@ Group BY Invoice.BillingCountry
 24.
 ##Provide a query that shows the most purchased track of 2013.
 
-
+SELECT Track.*, SUM(InvoiceLine.TrackId) AS "Total Sales", Invoice.InvoiceDate AS "Year" FROM InvoiceLine
+JOIN Invoice ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+JOIN Track ON InvoiceLine.TrackId = Track.TrackId
+WHERE Invoice.InvoiceDate LIKE "2013%"
+GROUP BY InvoiceLine.TrackId
+ORDER BY "Total Sales" 
+DESC LIMIT 1
 
 25.
 ##Provide a query that shows the top 5 most purchased tracks over all.
