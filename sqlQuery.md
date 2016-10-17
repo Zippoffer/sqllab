@@ -307,9 +307,15 @@ GROUP BY InvoiceLine.TrackId
 ORDER BY "Total Sales" 
 DESC LIMIT 1
 
+"3177"	"Hot Girl"	"249"	"3"	"19"		"1325458"	"267836576"	"1.99"	"3177"	"2013-12-22 00:00:00"
+
 25.
 ##Provide a query that shows the top 5 most purchased tracks over all.
 
+SELECT Track.*, SUM(InvoiceLine.TrackId) AS "Total Sales" FROM InvoiceLine
+JOIN Track ON InvoiceLine.TrackId = Track.TrackId
+GROUP BY InvoiceLine.TrackId
+ORDER BY "Total Sales" DESC LIMIT 5
 
 26.
 ##Provide a query that shows the top 3 best selling artists.
