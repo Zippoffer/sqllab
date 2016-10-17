@@ -299,16 +299,45 @@ Group BY Invoice.BillingCountry
 24.
 ##Provide a query that shows the most purchased track of 2013.
 
+SELECT Track.*, SUM(InvoiceLine.TrackId) AS "Total Sales", Invoice.InvoiceDate AS "Year" FROM InvoiceLine
+JOIN Invoice ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+JOIN Track ON InvoiceLine.TrackId = Track.TrackId
+WHERE Invoice.InvoiceDate LIKE "2013%"
+GROUP BY InvoiceLine.TrackId
+ORDER BY "Total Sales" 
+DESC LIMIT 1
 
+"3177"	"Hot Girl"	"249"	"3"	"19"		"1325458"	"267836576"	"1.99"	"3177"	"2013-12-22 00:00:00"
 
 25.
 ##Provide a query that shows the top 5 most purchased tracks over all.
 
+SELECT Track.*, SUM(InvoiceLine.TrackId) AS "Total Sales" FROM InvoiceLine
+JOIN Track ON InvoiceLine.TrackId = Track.TrackId
+GROUP BY InvoiceLine.TrackId
+ORDER BY "Total Sales" DESC LIMIT 5
 
 26.
 ##Provide a query that shows the top 3 best selling artists.
 
+SELECT Artist.Name, SUM(InvoiceLine.TrackId) AS "Total Sales" FROM InvoiceLine
+JOIN Track ON InvoiceLine.TrackId = Track.TrackId
+JOIN Album On Track.AlbumId = Album.AlbumId
+JOIN Artist ON Album.ArtistId = Artist.ArtistId
+GROUP BY InvoiceLine.TrackId
+ORDER BY "Total Sales" DESC LIMIT 3
+
+"Emerson String Quartet"	"7000"
+"Equale Brass Ensemble, John Eliot Gardiner & Munich Monteverdi Orchestra and Choir"	"6976"
+"Academy of St. Martin in the Fields, Sir Neville Marriner & Thurston Dart"	"6964"
 
 27.
 ##Provide a query that shows the most purchased Media Type.
 
+SELECT MediaType.Name, COUNT(*) AS "Count" FROM MediaType
+JOIN Track ON MediaType.MediaTypeId = Track.MediaTypeId
+JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId
+GROUP BY MediaType.Name
+ORDER BY "Count" DESC LIMIT 1
+
+"MPEG audio file"	"1976"
